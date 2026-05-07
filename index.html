@@ -1689,43 +1689,84 @@ body {
 <br>
 </div>
 <script>
-var lines = [];
-var lower = [];
-
-window.onload = function () {
-  var text = document.getElementById('book').innerHTML.split('<br>');
-
-  for (var i = 0; i < text.length; i++) {
-    var line = text[i].replace(/<[^>]+>/g, '');
-
-    if (line) {
-      lines.push(line);
-      lower.push(line.toLowerCase());
-    }
-  }
-};
+var rawText = '';
+var pos = 0;
+var found = 0;
+var word = '';
 
 function searchWord() {
-  var word = document.getElementById('searchInput').value.toLowerCase();
-  var result = document.getElementById('searchResult');
+
+  // Начинаем новый поиск
+  word = document.getElementById('searchInput').value.toLowerCase();
 
   if (!word) {
-    result.innerHTML = 'Введите слово';
+    document.getElementById('searchResult').innerHTML = 'Введите слово';
     return;
   }
 
-  var out = '';
-  var c = 0;
+  rawText = document.getElementById('book').innerHTML;
 
-  for (var i = 0; i < lower.length; i++) {
-    if (lower[i].indexOf(word) != -1) {
-      out += lines[i] + '<br>';
-      c++;
-      if (c == 10) break;
+  pos = 0;
+  found = 0;
+
+  document.getElementById('searchResult').innerHTML = 'Поиск...<br>';
+
+  searchChunk();
+}
+
+function searchChunk() {
+
+  // Размер куска
+  var size = Math.floor(rawText.length / 10);
+
+  // Берем только часть текста
+  var chunk = rawText.substr(pos, size);
+
+  // Освобождаем память сразу
+  chunk = chunk.replace(/<[^>]+>/g, '');
+
+  var lines = chunk.split('<br>');
+
+  var out = '';
+
+  for (var i = 0; i < lines.length; i++) {
+
+    var line = lines[i];
+
+    if (line.toLowerCase().indexOf(word) != -1) {
+
+      out += line + '<br>';
+      found++;
+
+      if (found >= 10) {
+        document.getElementById('searchResult').innerHTML += out;
+        rawText = '';
+        return;
+      }
     }
   }
 
-  result.innerHTML = c ? out : 'Ничего не найдено';
+  document.getElementById('searchResult').innerHTML += out;
+
+  // Очищаем память
+  chunk = null;
+  lines = null;
+
+  pos += size;
+
+  // Продолжаем позже
+  if (pos < rawText.length) {
+
+    setTimeout(searchChunk, 10);
+
+  } else {
+
+    if (found == 0) {
+      document.getElementById('searchResult').innerHTML = 'Ничего не найдено';
+    }
+
+    rawText = '';
+  }
 }
 </script>
 
