@@ -48,6 +48,12 @@ body {
 
 </head>
 <body>
+<div>
+  <input type="text" id="searchInput" placeholder="введите слово на русском" style="width:180px; font-family:monospace;">
+  <button onclick="searchWord()" style="font-family:monospace;">Найти</button><br>
+  <div id="searchResult" style="margin-top:5px; color:green;"></div>
+</div>
+
 <div style="font-family:monospace;">
   <a href="#s1">1. Местоимения</a><br>
   <a href="#s2">2. Приветствия</a><br>
@@ -3057,6 +3063,40 @@ body {
 показание (счётчика) relevé (m)<br>
 <br>
 </div>
+<script>
+function searchWord() {
+  var word = document.getElementById('searchInput').value.trim().toLowerCase();
+  if(word === '') {
+    document.getElementById('searchResult').innerHTML = 'Введите слово';
+    return;
+  }
+  
+  var book = document.getElementById('book');
+  var text = book.innerHTML;
+  
+  // Ищем слово в тексте (в конце строки после перевода)
+  var lines = text.split(/<br\s*\/?>/i);
+  var found = [];
+  
+  for(var i = 0; i < lines.length; i++) {
+    var line = lines[i].replace(/<[^>]*>/g, ' '); // убираем HTML теги
+    if(line.toLowerCase().indexOf(word) !== -1) {
+      // Показываем строку с переводом
+      if(line.indexOf(' ') > 0) {
+        found.push(line.trim());
+      }
+      if(found.length >= 10) break;
+    }
+  }
+  
+  var resultDiv = document.getElementById('searchResult');
+  if(found.length > 0) {
+    resultDiv.innerHTML = '<b>Найдено:</b><br>' + found.join('<br>');
+  } else {
+    resultDiv.innerHTML = 'Ничего не найдено';
+  }
+}
+</script>
 
 </body>
 </html>
