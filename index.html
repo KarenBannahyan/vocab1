@@ -2199,6 +2199,21 @@ pre{
 
 <script>
 
+// ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+var TEXT = '';
+var LEN = 0;
+
+// ЗАГРУЖАЕМ ОДИН РАЗ
+window.onload = function(){
+
+  TEXT =
+  document.getElementById('book').value;
+
+  LEN = TEXT.length;
+
+};
+
+// МАКСИМАЛЬНО ЛЁГКИЙ ПОИСК
 function s(){
 
   var w =
@@ -2214,45 +2229,53 @@ function s(){
     return;
   }
 
-  var t =
-  document.getElementById('book')
-  .innerText;
-
-  var len = t.length;
-
-  var start = 0;
-
-  var out = '';
+  var pos = 0;
 
   var found = 0;
 
-  while(start < len){
+  var out = '';
 
+  while(true){
+
+    // ИЩЕМ СЛОВО
+    pos =
+    TEXT.toLowerCase().indexOf(w, pos);
+
+    if(pos == -1){
+      break;
+    }
+
+    // ИЩЕМ НАЧАЛО СТРОКИ
+    var start =
+    TEXT.lastIndexOf('\n', pos);
+
+    if(start == -1){
+      start = 0;
+    }else{
+      start++;
+    }
+
+    // ИЩЕМ КОНЕЦ СТРОКИ
     var end =
-    t.indexOf('\n', start);
+    TEXT.indexOf('\n', pos);
 
     if(end == -1){
-      end = len;
+      end = LEN;
     }
 
-    var line =
-    t.substring(start, end);
+    // БЕРЁМ ТОЛЬКО ОДНУ СТРОКУ
+    out +=
+    TEXT.substring(start, end)
+    + '<br>';
 
-    if(
-      line.toLowerCase()
-      .indexOf(w) != -1
-    ){
+    found++;
 
-      out += line + '<br>';
-
-      found++;
-
-      if(found >= 5){
-        break;
-      }
+    // МАКСИМУМ 3 РЕЗУЛЬТАТА
+    if(found >= 3){
+      break;
     }
 
-    start = end + 1;
+    pos = end;
   }
 
   if(found){
@@ -2263,6 +2286,7 @@ function s(){
 
 }
 </script>
+
 
 </body>
 </html>
