@@ -8,44 +8,23 @@
 body{
   font-family:monospace;
   font-size:14px;
-  margin:2px;
-  background:#fff;
-}
-
-input{
-  width:160px;
-  font-size:14px;
-  font-family:monospace;
-}
-
-button{
-  font-size:14px;
-  font-family:monospace;
 }
 
 #result{
-  margin-top:5px;
   color:green;
-}
-
-pre{
-  white-space:pre-wrap;
-  word-wrap:break-word;
-  margin-top:10px;
+  margin-top:5px;
 }
 </style>
 </head>
 
 <body>
 
-<input id="q" placeholder="Русское слово">
+<input id="q">
 <button onclick="s()">Найти</button>
 
 <div id="result"></div>
 
-<hr>
-
-<pre id="book">
+<textarea id="book" style="width:100%;height:200px;">
 1. Местоимения
 
 я je
@@ -2195,98 +2174,80 @@ pre{
 татуировка tatouage (m)
 
 шрам cicatrice (f)
-</pre>
+</textarea>
 
 <script>
 
-// ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
-var TEXT = '';
-var LEN = 0;
-
-// ЗАГРУЖАЕМ ОДИН РАЗ
-window.onload = function(){
-
-  TEXT =
-  document.getElementById('book').value;
-
-  LEN = TEXT.length;
-
-};
-
-// МАКСИМАЛЬНО ЛЁГКИЙ ПОИСК
 function s(){
 
-  var w =
+  var q =
   document.getElementById('q')
-  .value
-  .toLowerCase();
+  .value;
 
-  var r =
-  document.getElementById('result');
-
-  if(!w){
-    r.innerHTML='Введите слово';
+  if(!q){
+    document.getElementById('result')
+    .innerHTML='Введите слово';
     return;
   }
 
-  var pos = 0;
+  q = q.toLowerCase();
 
-  var found = 0;
+  var text =
+  document.getElementById('book');
+
+  var data = text.value;
+
+  var len = data.length;
+
+  var line = '';
 
   var out = '';
 
-  while(true){
+  var found = 0;
 
-    // ИЩЕМ СЛОВО
-    pos =
-    TEXT.toLowerCase().indexOf(w, pos);
+  var i = 0;
 
-    if(pos == -1){
-      break;
-    }
+  // ЧИТАЕМ ПО СИМВОЛУ
+  while(i < len){
 
-    // ИЩЕМ НАЧАЛО СТРОКИ
-    var start =
-    TEXT.lastIndexOf('\n', pos);
+    var c = data.charAt(i);
 
-    if(start == -1){
-      start = 0;
+    // КОНЕЦ СТРОКИ
+    if(c == '\n'){
+
+      // ПРОВЕРКА
+      if(
+        line.toLowerCase()
+        .indexOf(q) != -1
+      ){
+
+        out += line + '<br>';
+
+        found++;
+
+        if(found >= 3){
+          break;
+        }
+      }
+
+      // ОЧИСТКА
+      line = '';
+
     }else{
-      start++;
+
+      line += c;
+
     }
 
-    // ИЩЕМ КОНЕЦ СТРОКИ
-    var end =
-    TEXT.indexOf('\n', pos);
-
-    if(end == -1){
-      end = LEN;
-    }
-
-    // БЕРЁМ ТОЛЬКО ОДНУ СТРОКУ
-    out +=
-    TEXT.substring(start, end)
-    + '<br>';
-
-    found++;
-
-    // МАКСИМУМ 3 РЕЗУЛЬТАТА
-    if(found >= 3){
-      break;
-    }
-
-    pos = end;
+    i++;
   }
 
-  if(found){
-    r.innerHTML = out;
-  }else{
-    r.innerHTML = 'Не найдено';
-  }
+  document.getElementById('result')
+  .innerHTML =
+  found ? out : 'Не найдено';
 
 }
 </script>
-
 
 </body>
 </html>
