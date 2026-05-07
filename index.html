@@ -2405,36 +2405,57 @@ body {
 <br>
 </div>
 <script>
-function searchWord() {
-  var word = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(word === '') {
-    document.getElementById('searchResult').innerHTML = 'Введите слово';
-    return;
-  }
+var searchCache = null;
+
+function buildCache() {
+  if(searchCache) return searchCache;
   
   var book = document.getElementById('book');
-  var text = book.innerHTML;
-  
-  // Ищем слово в тексте (в конце строки после перевода)
-  var lines = text.split(/<br\s*\/?>/i);
-  var found = [];
+  var text = book.textContent || book.innerText;
+  var lines = text.split('\n');
+  var cache = [];
   
   for(var i = 0; i < lines.length; i++) {
-    var line = lines[i].replace(/<[^>]*>/g, ' '); // убираем HTML теги
-    if(line.toLowerCase().indexOf(word) !== -1) {
-      // Показываем строку с переводом
-      if(line.indexOf(' ') > 0) {
-        found.push(line.trim());
-      }
-      if(found.length >= 10) break;
+    var line = lines[i].trim();
+    if(line.length > 0 && line.length < 200) {
+      cache.push(line);
     }
   }
   
+  searchCache = cache;
+  return cache;
+}
+
+function searchWord() {
+  var word = document.getElementById('searchInput').value.trim().toLowerCase();
   var resultDiv = document.getElementById('searchResult');
+  
+  if(word === '') {
+    resultDiv.innerHTML = '';
+    return;
+  }
+  
+  if(word.length < 2) {
+    resultDiv.innerHTML = 'минимум 2 буквы';
+    return;
+  }
+  
+  var lines = buildCache();
+  var found = [];
+  
+  for(var i = 0; i < lines.length && found.length < 20; i++) {
+    var line = lines[i].toLowerCase();
+    if(line.indexOf(word) !== -1) {
+      var original = lines[i];
+      if(original.length > 60) original = original.substring(0, 60) + '...';
+      found.push(original);
+    }
+  }
+  
   if(found.length > 0) {
-    resultDiv.innerHTML = '<b>Найдено:</b><br>' + found.join('<br>');
+    resultDiv.innerHTML = '<b>' + found.length + ' найденo:</b><br>' + found.join('<br>');
   } else {
-    resultDiv.innerHTML = 'Ничего не найдено';
+    resultDiv.innerHTML = 'не найдено';
   }
 }
 </script>
