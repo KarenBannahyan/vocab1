@@ -1689,37 +1689,43 @@ body {
 <br>
 </div>
 <script>
-function searchWord() {
-  var word = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(word === '') {
-    document.getElementById('searchResult').innerHTML = 'Введите слово';
-    return;
-  }
-  
-  var book = document.getElementById('book');
-  var text = book.innerHTML;
-  
-  // Ищем слово в тексте (в конце строки после перевода)
-  var lines = text.split(/<br\s*\/?>/i);
-  var found = [];
-  
-  for(var i = 0; i < lines.length; i++) {
-    var line = lines[i].replace(/<[^>]*>/g, ' '); // убираем HTML теги
-    if(line.toLowerCase().indexOf(word) !== -1) {
-      // Показываем строку с переводом
-      if(line.indexOf(' ') > 0) {
-        found.push(line.trim());
-      }
-      if(found.length >= 10) break;
+var lines = [];
+var lower = [];
+
+window.onload = function () {
+  var text = document.getElementById('book').innerHTML.split('<br>');
+
+  for (var i = 0; i < text.length; i++) {
+    var line = text[i].replace(/<[^>]+>/g, '');
+
+    if (line) {
+      lines.push(line);
+      lower.push(line.toLowerCase());
     }
   }
-  
-  var resultDiv = document.getElementById('searchResult');
-  if(found.length > 0) {
-    resultDiv.innerHTML = '<b>Найдено:</b><br>' + found.join('<br>');
-  } else {
-    resultDiv.innerHTML = 'Ничего не найдено';
+};
+
+function searchWord() {
+  var word = document.getElementById('searchInput').value.toLowerCase();
+  var result = document.getElementById('searchResult');
+
+  if (!word) {
+    result.innerHTML = 'Введите слово';
+    return;
   }
+
+  var out = '';
+  var c = 0;
+
+  for (var i = 0; i < lower.length; i++) {
+    if (lower[i].indexOf(word) != -1) {
+      out += lines[i] + '<br>';
+      c++;
+      if (c == 10) break;
+    }
+  }
+
+  result.innerHTML = c ? out : 'Ничего не найдено';
 }
 </script>
 
