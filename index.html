@@ -2,1771 +2,224 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Книга</title>
+<title>Словарь</title>
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 1.4;
+body{
+  font-family:monospace;
+  font-size:14px;
+  margin:2px;
+  background:#fff;
 }
 
-#book {
-  width: 300px;
-  padding: 2px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  word-break: break-all;
-  padding-bottom: 160px;
+input{
+  width:160px;
+  font-size:14px;
+  font-family:monospace;
 }
 
-.nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  border-top: 2px solid black;
-  padding: 5px;
-  font-family: monospace;
-  font-size: 12px;
-  max-height: 150px;
-  overflow-y: auto;
+button{
+  font-size:14px;
+  font-family:monospace;
 }
-.nav a {
-  display: inline-block;
-  text-decoration: none;
-  color: blue;
-  margin: 3px;
-  padding: 2px 5px;
-  border: 1px solid #ccc;
+
+#result{
+  margin-top:5px;
+  color:green;
+}
+
+pre{
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  margin-top:10px;
 }
 </style>
-
 </head>
+
 <body>
-<div>
-  <input type="text" id="searchInput" placeholder="введите слово на русском" style="width:180px; font-family:monospace;">
-  <button onclick="searchWord()" style="font-family:monospace;">Найти</button><br>
-  <div id="searchResult" style="margin-top:5px; color:green;"></div>
-</div>
 
-<div style="font-family:monospace;">
-  <a href="#s1">1. Местоимения</a><br>
-  <a href="#s2">2. Приветствия</a><br>
-  <a href="#s3">3. Обращения</a><br>
-  <a href="#s4">4. Числа 1-100</a><br>
-  <a href="#s5">5. Числа от 100</a><br>
-  <a href="#s6">6. Порядковые числительные</a><br>
-  <a href="#s7">7. Дроби</a><br>
-  <a href="#s8">8. Математические действия</a><br>
-  <a href="#s9">9. Числа. Разное</a><br>
-  <a href="#s10">10. Глаголы-1</a><br>
-  <a href="#s11">11. Глаголы-2</a><br>
-  <a href="#s12">12. Глаголы-3</a><br>
-  <a href="#s13">13. Глаголы-4</a><br>
-  <a href="#s14">14. Цвета</a><br>
-  <a href="#s15">15. Вопросы</a><br>
-  <a href="#s16">16. Основные предлоги</a><br>
-  <a href="#s17">17. Наречия-1</a><br>
-  <a href="#s18">18. Наречия-2</a><br>
-  <a href="#s19">19. Дни недели</a><br>
-  <a href="#s20">20. Часы. Время суток</a><br>
-  <a href="#s21">21. Месяцы. Времена года</a><br>
-  <a href="#s22">22. Время. Разное</a><br>
-  <a href="#s23">23. Противоположности</a><br>
-  <a href="#s24">24. Линии и формы</a><br>
-  <a href="#s25">25. Меры измерения</a><br>
-  <a href="#s26">26. Ёмкости</a><br>
-  <a href="#s27">27. Материалы</a><br>
-  <a href="#s28">28. Металлы</a><br>
-  <a href="#s29">29. Человек. Общие понятия</a><br>
-  <a href="#s31">31. Голова</a><br>
-  <a href="#s32">32. Тело</a><br>
-  <a href="#s33">33. Верхняя одежда</a><br>
-  <a href="#s35">35. Одежда. Бельё</a><br>
-  <a href="#s36">36. Головной убор</a><br>
-  <a href="#s37">37. Обувь</a><br>
-  <a href="#s38">38. Ткани. Материалы</a><br>
-  <a href="#s39">39. Аксессуары</a><br>
-  <a href="#s41">41. Предметы гигиены. Косметика</a><br>
-  <a href="#s42">42. Украшения. Драгоценности</a><br>
-  <a href="#s43">43. Часы</a><br>
-  <a href="#s44">44. Продукты</a><br>
-  <a href="#s45">45. Напитки</a><br>
-  <a href="#s46">46. Овощи</a><br>
-  <a href="#s47">47. Фрукты. Орехи</a><br>
-  <a href="#s48">48. Сладости. Хлеб</a><br>
-  <a href="#s49">49. Блюда</a><br>
-  <br>
-  <hr>
-  <br>
-</div>
+<input id="q" placeholder="Русское слово">
+<button onclick="s()">Найти</button>
 
-<div id="book">
-основные понятия | часть 1<br>
-<span id="s1">1. Местоимения</span><br>
-я je<br>
-ты tu<br>
-он il<br>
-она elle<br>
-оно ça<br>
-мы nous<br>
-вы vous<br>
-они (муж. род) ils<br>
-они (жен. род) elles<br>
-<br>
-<span id="s2">2. Приветствия. Прощания. Извинения. Благодарность</span><br>
-Здравствуй! Bonjour!<br>
-Здравствуйте! Bonjour!<br>
-Доброе утро! Bonjour!<br>
-Добрый день! Bonjour!<br>
-Добрый вечер! Bonsoir!<br>
-здороваться dire bonjour<br>
-Привет! Salut!<br>
-привет, приветствие salut (m)<br>
-приветствовать saluer (vt)<br>
-Как у вас дела? Comment allez-vous?<br>
-Как дела? (у тебя) Comment ça va?<br>
-Что нового? Quoi de neuf?<br>
-До свидания! Au revoir!<br>
-До скорой встречи! À bientôt!<br>
-Прощай! Прощайте! Adieu!<br>
-прощаться dire au revoir<br>
-Пока! Salut!<br>
-Спасибо! Merci!<br>
-Большое спасибо! Merci beaucoup!<br>
-Пожалуйста (ответ) Je vous en prie<br>
-Не стоит благодарности Il n'y a pas de quoi<br>
-Не за что Pas de quoi<br>
-Извини! Excuse-moi!<br>
-Извините! Excusez-moi!<br>
-извинять excuser (vt)<br>
-извиняться s'excuser (vp)<br>
-Мои извинения. Mes excuses<br>
-Простите! Pardonnez-moi!<br>
-прощать (кого-л.) pardonner (vt)<br>
-Ничего страшного (ответ) C'est pas grave<br>
-пожалуйста (при просьбе) s'il vous plaît<br>
-Не забудьте! N'oubliez pas!<br>
-Конечно! Bien sûr!<br>
-Конечно нет! Bien sûr que non!<br>
-Согласен! D'accord!<br>
-Хватит! Ça suffit!<br>
-<br>
-<span id="s3">3. Обращения</span><br>
-господин monsieur<br>
-госпожа madame<br>
-девушка mademoiselle<br>
-молодой человек jeune homme<br>
-мальчик petit garçon<br>
-девочка petite fille<br>
-<br>
-<span id="s4">4. Числа от 1 до 100</span><br>
-0 ноль zéro<br>
-1 один un<br>
-2 два deux<br>
-3 три trois<br>
-4 четыре quatre<br>
-5 пять cinq<br>
-6 шесть six<br>
-7 семь sept<br>
-8 восемь huit<br>
-9 девять neuf<br>
-10 десять dix<br>
-11 одиннадцать onze<br>
-12 двенадцать douze<br>
-13 тринадцать treize<br>
-14 четырнадцать quatorze<br>
-15 пятнадцать quinze<br>
-16 шестнадцать seize<br>
-17 семнадцать dix-sept<br>
-18 восемнадцать dix-huit<br>
-19 девятнадцать dix-neuf<br>
-20 двадцать vingt<br>
-21 двадцать один vingt et un<br>
-22 двадцать два vingt-deux<br>
-23 двадцать три vingt-trois<br>
-30 тридцать trente<br>
-31 тридцать один trente et un<br>
-32 тридцать два trente-deux<br>
-33 тридцать три trente-trois<br>
-40 сорок quarante<br>
-41 сорок один quarante et un<br>
-42 сорок два quarante-deux<br>
-43 сорок три quarante-trois<br>
-50 пятьдесят cinquante<br>
-51 пятьдесят один cinquante et un<br>
-52 пятьдесят два cinquante-deux<br>
-53 пятьдесят три cinquante-trois<br>
-60 шестьдесят soixante<br>
-61 шестьдесят один soixante et un<br>
-62 шестьдесят два soixante-deux<br>
-63 шестьдесят три soixante-trois<br>
-70 семьдесят soixante-dix<br>
-71 семьдесят один soixante et onze<br>
-72 семьдесят два soixante-douze<br>
-73 семьдесят три soixante-treize<br>
-80 восемьдесят quatre-vingts<br>
-81 восемьдесят один quatre-vingt et un<br>
-82 восемьдесят два quatre-vingt deux<br>
-83 восемьдесят три quatre-vingt trois<br>
-90 девяносто quatre-vingt-dix<br>
-91 девяносто один quatre-vingt et onze<br>
-92 девяносто два quatre-vingt-douze<br>
-93 девяносто три quatre-vingt-treize<br>
-<br>
-<span id="s5">5. Числа от 100</span><br>
-100 сто cent<br>
-200 двести deux cents<br>
-300 триста trois cents<br>
-400 четыреста quatre cents<br>
-500 пятьсот cinq cents<br>
-600 шестьсот six cents<br>
-700 семьсот sept cents<br>
-800 восемьсот huit cents<br>
-900 девятьсот neuf cents<br>
-1000 тысяча mille<br>
-2000 две тысячи deux mille<br>
-3000 три тысячи trois mille<br>
-10000 десять тысяч dix mille<br>
-100000 сто тысяч cent mille<br>
-миллион million (m)<br>
-миллиард milliard (m)<br>
-<br>
-<span id="s6">6. Числа. Порядковые числительные</span><br>
-первый premier (adj)<br>
-второй deuxième (adj)<br>
-третий troisième (adj)<br>
-четвёртый quatrième (adj)<br>
-пятый cinquième (adj)<br>
-шестой sixième (adj)<br>
-седьмой septième (adj)<br>
-восьмой huitième (adj)<br>
-девятый neuvième (adj)<br>
-десятый dixième (adj)<br>
-<br>
-<span id="s7">7. Числа. Дроби</span><br>
-дробь fraction (f)<br>
-одна вторая un demi<br>
-одна третья un tiers<br>
-одна четвертая un quart<br>
-одна восьмая un huitième<br>
-одна десятая un dixième<br>
-две третьих deux tiers<br>
-три четвёртых trois quarts<br>
-<br>
-<span id="s8">8. Числа. Математические действия</span><br>
-вычитание soustraction (f)<br>
-вычитать soustraire (vt)<br>
-деление division (f)<br>
-делить diviser (vt)<br>
-сложение addition (f)<br>
-сложить (матем.) additionner (vt)<br>
-прибавлять ajouter (vt)<br>
-умножение multiplication (f)<br>
-умножать multiplier (vt)<br>
-цифра chiffre (m)<br>
-число nombre (m)<br>
-числительное adjectif (m) numéral<br>
-минус moins (m)<br>
-плюс plus (m)<br>
-формула formule (f)<br>
-вычисление calcul (m)<br>
-считать compter (vt)<br>
-подсчитывать calculer (vt)<br>
-сравнивать comparer (vt)<br>
-Сколько? Combien?<br>
-сумма somme (f)<br>
-результат résultat (m)<br>
-остаток reste (m)<br>
-несколько quelques …<br>
-немного peu de …<br>
-остальное reste (m)<br>
-полтора un et demi<br>
-дюжина douzaine (f)<br>
-пополам (на 2 части) en deux<br>
-поровну en parties égales<br>
-половина moitié (f)<br>
-раз fois (f)<br>
-<br>
-<span id="s9">9. Числа. Разное</span><br>
-<br>
-<span id="s10">10. Самые важные глаголы - 1</span><br>
-бежать courir (vt)<br>
-бояться avoir peur<br>
-брать prendre (vt)<br>
-быть être (vi)<br>
-видеть voir (vt)<br>
-владеть posséder (vt)<br>
-возражать objecter (vt)<br>
-входить (в комнату и т.п.) entrer (vi)<br>
-выбирать choisir (vt)<br>
-выходить (из дома) sortir (vi)<br>
-говорить (разговаривать) parler (vi, vt)<br>
-готовить (обед) préparer (vt)<br>
-давать donner (vt)<br>
-делать faire (vt)<br>
-доверять avoir confiance<br>
-думать penser (vi, vt)<br>
-жаловаться se plaindre (vp)<br>
-ждать attendre (vt)<br>
-забывать oublier (vt)<br>
-завтракать prendre le petit déjeuner<br>
-заказывать commander (vt)<br>
-заканчивать finir (vt)<br>
-замечать (увидеть) apercevoir (vt)<br>
-записывать prendre en note<br>
-защищать (страну) défendre (vt)<br>
-звать (на помощь и т.п.) appeler (vt)<br>
-знать (кого-л.) connaître (vt)<br>
-знать (что-л.) savoir (vt)<br>
-<br>
-<span id="s11">11. Самые важные глаголы - 2</span><br>
-играть jouer (vt)<br>
-идти aller (vi)<br>
-извинять excuser (vt)<br>
-извиняться s'excuser (vp)<br>
-изменить (поменять) changer (vt)<br>
-изучать étudier (vt)<br>
-иметь avoir (vt)<br>
-интересоваться s'intéresser (vp)<br>
-информировать informer (vt)<br>
-искать … chercher (vt)<br>
-контролировать contrôler (vt)<br>
-красть voler (vt)<br>
-кричать crier (vi)<br>
-купаться (в море и т.п.) se baigner (vp)<br>
-лететь voler (vi)<br>
-ловить attraper (vt)<br>
-ломать casser (vt)<br>
-любить (кого-л.) aimer (vt)<br>
-молиться prier (vt)<br>
-молчать rester silencieux<br>
-мочь pouvoir (v aux)<br>
-наблюдать observer (vt)<br>
-надеяться espérer (vi)<br>
-наказывать punir (vt)<br>
-настаивать (упорствовать) insister (vi)<br>
-находить trouver (vt)<br>
-начинать commencer (vt)<br>
-недооценивать sous-estimer (vt)<br>
-нравиться plaire (vt)<br>
-обедать déjeuner (vi)<br>
-обещать promettre (vt)<br>
-обманывать tromper (vt)<br>
-обсуждать discuter (vt)<br>
-объединять réunir (vt)<br>
-объяснять expliquer (vt)<br>
-означать signifier (vt)<br>
-освобождать (город) libérer (vt)<br>
-оскорблять insulter (vt)<br>
-останавливаться s'arrêter (vp)<br>
-отвечать répondre (vi, vt)<br>
-отгадать deviner (vt)<br>
-отказываться se refuser (vp)<br>
-открывать (дверь и т.п.) ouvrir (vt)<br>
-отправлять envoyer (vt)<br>
-охотиться chasser (vi, vt)<br>
-ошибаться se tromper (vp)<br>
-<br>
-<span id="s12">12. Самые важные глаголы - 3</span><br>
-падать tomber (vi)<br>
-переводить (текст) traduire (vt)<br>
-писать écrire (vt)<br>
-плавать nager (vi)<br>
-плакать pleurer (vi)<br>
-планировать planifier (vt)<br>
-платить payer (vi, vt)<br>
-поворачивать tourner (vi)<br>
-повторять répéter (vt)<br>
-подписывать signer (vt)<br>
-подсказать (отгадку) donner un indice<br>
-показывать montrer (vt)<br>
-помогать aider (vt)<br>
-понимать comprendre (vt)<br>
-предвидеть (ожидать) prévoir (vt)<br>
-предлагать proposer (vt)<br>
-предпочитать préférer (vt)<br>
-предупреждать avertir (vt)<br>
-прекращать cesser (vt)<br>
-приглашать inviter (vt)<br>
-приезжать venir (vi)<br>
-приказывать ordonner (vt)<br>
-принадлежать appartenir à …<br>
-пробовать (пытаться) essayer (vt)<br>
-продавать vendre (vt)<br>
-продолжать continuer (vt)<br>
-произносить (слово) prononcer (vt)<br>
-пропускать (занятия и т.п.) manquer (vt)<br>
-просить demander (vt)<br>
-прощать pardonner (vt)<br>
-прятать cacher (vt)<br>
-путать (ошибаться) confondre (vt)<br>
-работать travailler (vi)<br>
-разрешать permettre (vt)<br>
-рассчитывать на … compter sur …<br>
-резервировать réserver (vt)<br>
-рекомендовать recommander (vt)<br>
-ронять faire tomber<br>
-ругать gronder (vt)<br>
-руководить (чем-л.) diriger (vt)<br>
-рыть creuser (vt)<br>
-<br>
-<span id="s13">13. Самые важные глаголы - 4</span><br>
-садиться s'asseoir (vp)<br>
-сказать dire (vt)<br>
-следовать за … suivre (vt)<br>
-слышать entendre (vt)<br>
-смеяться rire (vi)<br>
-снимать (напр. квартиру) louer (vt)<br>
-советовать conseiller (vt)<br>
-соглашаться être d'accord<br>
-сожалеть regretter (vt)<br>
-создать créer (vt)<br>
-сомневаться douter (vt)<br>
-сохранять garder (vt)<br>
-спасать sauver (vt)<br>
-спрашивать demander (vt)<br>
-спускаться descendre (vi)<br>
-сравнивать comparer (vt)<br>
-стоить coûter (vt)<br>
-стрелять tirer (vi)<br>
-существовать exister (vi)<br>
-считать (подсчитывать) compter (vi, vt)<br>
-торопиться être pressé<br>
-требовать exiger (vt)<br>
-требоваться être nécessaire<br>
-трогать toucher (vt)<br>
-убивать tuer (vt)<br>
-угрожать menacer (vt)<br>
-удивляться s'étonner (vp)<br>
-ужинать dîner (vi)<br>
-украшать décorer (vt)<br>
-улыбаться sourire (vi)<br>
-упоминать mentionner (vt)<br>
-участвовать participer à …<br>
-хвастаться se vanter (vp)<br>
-хотеть vouloir (vt)<br>
-хотеть есть avoir faim<br>
-хотеть пить avoir soif<br>
-читать lire (vi, vt)<br>
-шутить plaisanter (vi)<br>
-<br>
-<span id="s14">14. Цвета</span><br>
-цвет couleur (f)<br>
-оттенок teinte (f)<br>
-тон ton (m)<br>
-радуга arc-en-ciel (m)<br>
-белый blanc (adj)<br>
-чёрный noir (adj)<br>
-серый gris (adj)<br>
-зелёный vert (adj)<br>
-жёлтый jaune (adj)<br>
-красный rouge (adj)<br>
-синий bleu (adj)<br>
-голубой bleu clair (adj)<br>
-розовый rose (adj)<br>
-оранжевый orange (adj)<br>
-фиолетовый violet (adj)<br>
-коричневый brun (adj)<br>
-золотой d'or (adj)<br>
-серебристый argenté (adj)<br>
-бежевый beige (adj)<br>
-кремовый crème (adj)<br>
-бирюзовый turquoise (adj)<br>
-вишнёвый rouge cerise (adj)<br>
-лиловый lilas (adj)<br>
-малиновый framboise (adj)<br>
-светлый clair (adj)<br>
-тёмный foncé (adj)<br>
-яркий vif (adj)<br>
-цветной (карандаш) de couleur (adj)<br>
-цветной (фильм) en couleurs (adj)<br>
-чёрно-белый noir et blanc (adj)<br>
-одноцветный monochrome (adj)<br>
-разноцветный multicolore (adj)<br>
-<br>
-<span id="s15">15. Вопросы</span><br>
-Кто? Qui?<br>
-Что? Quoi?<br>
-Где? Où?<br>
-Куда? Où?<br>
-Откуда? D'où?<br>
-Когда? Quand?<br>
-Зачем? Pourquoi?<br>
-Почему? Pourquoi?<br>
-Для чего? À quoi bon?<br>
-Как? Comment?<br>
-Какой? Quel?<br>
-Который? Lequel?<br>
-Кому? À qui?<br>
-О ком? De qui?<br>
-О чём? De quoi?<br>
-С кем? Avec qui?<br>
-Сколько? Combien?<br>
-Чей? À qui?<br>
-<br>
-<span id="s16">16. Основные предлоги</span><br>
-с … (с кем-л.) avec … (prep)<br>
-без (~ сахара и т.п.) sans … (prep)<br>
-в (предлог движения) à … (prep)<br>
-о (говорить о …) de … (prep)<br>
-перед (во времени) avant (prep)<br>
-перед (в пространстве) devant (prep)<br>
-под (внизу) sous … (prep)<br>
-над (наверху) au-dessus de … (prep)<br>
-на (на чём-то) sur … (prep)<br>
-из (откуда-то) de … (prep)<br>
-из (о материале) en … (prep)<br>
-через ... (о времени) dans … (prep)<br>
-через (о препятствии) par dessus … (prep)<br>
-<br>
-<span id="s17">17. Вводные и служебные слова. Наречия - 1</span><br>
-Где? Où?<br>
-здесь ici (adv)<br>
-там là-bas (adv)<br>
-где-то quelque part (adv)<br>
-нигде nulle part (adv)<br>
-у … (около) près de … (prep)<br>
-у окна près de la fenêtre<br>
-Куда? Où?<br>
-сюда ici (adv)<br>
-туда là-bas (adv)<br>
-отсюда d'ici (adv)<br>
-оттуда de là-bas (adv)<br>
-близко près (adv)<br>
-далеко loin (adv)<br>
-около (рядом) près de …<br>
-рядом (недалеко) tout près (adv)<br>
-недалеко (ехать, идти) pas loin (adv)<br>
-левый gauche (adj)<br>
-слева à gauche (adv)<br>
-налево à gauche (adv)<br>
-правый droit (adj)<br>
-справа à droite (adv)<br>
-направо à droite (adv)<br>
-спереди devant (adv)<br>
-передний de devant (adj)<br>
-вперёд (движение) en avant (adv)<br>
-сзади (находиться) derrière (adv)<br>
-сзади (подойти) par derrière (adv)<br>
-назад (движение) en arrière (adv)<br>
-середина milieu (m)<br>
-посередине au milieu (adv)<br>
-сбоку (со стороны) de côté (adv)<br>
-везде partout (adv)<br>
-вокруг autour (adv)<br>
-изнутри de l'intérieur<br>
-куда-то quelque part (adv)<br>
-напрямик tout droit (adv)<br>
-обратно en arrière (adv)<br>
-откуда-нибудь de quelque part<br>
-откуда-то de quelque part<br>
-во-первых premièrement (adv)<br>
-во-вторых deuxièmement (adv)<br>
-в-третьих troisièmement (adv)<br>
-вдруг soudain (adv)<br>
-вначале au début (adv)<br>
-впервые pour la première fois<br>
-задолго до … bien avant …<br>
-заново de nouveau (adv)<br>
-насовсем pour toujours (adv)<br>
-никогда jamais (adv)<br>
-опять encore (adv)<br>
-теперь maintenant (adv)<br>
-часто souvent (adv)<br>
-тогда alors (adv)<br>
-срочно d'urgence (adv)<br>
-обычно d'habitude (adv)<br>
-кстати, … à propos, …<br>
-возможно c'est possible<br>
-вероятно probablement (adv)<br>
-может быть peut-être (adv)<br>
-кроме того, … en plus, …<br>
-поэтому … c'est pourquoi …<br>
-несмотря на … malgré …<br>
-благодаря … grâce à …<br>
-что (местоимение) quoi (pron)<br>
-что (союз) que (conj)<br>
-что-то quelque chose (pron)<br>
-что-нибудь quelque chose (pron)<br>
-ничего rien<br>
-кто qui (pron)<br>
-кто-то quelqu'un (pron)<br>
-кто-нибудь quelqu'un (pron)<br>
-никто personne (pron)<br>
-никуда nulle part (adv)<br>
-ничей de personne<br>
-чей-нибудь de n'importe qui<br>
-так comme ça (adv)<br>
-также également (adv)<br>
-тоже aussi (adv)<br>
-<br>
-<span id="s18">18. Вводные и служебные слова. Наречия - 2</span><br>
-Почему? Pourquoi?<br>
-почему-то on ne sait pourquoi<br>
-потому, что … parce que …<br>
-зачем-то pour une raison quelconque<br>
-и et (conj)<br>
-или ou (conj)<br>
-но mais (conj)<br>
-для (предлог) pour … (prep)<br>
-слишком trop (adv)<br>
-только seulement (adv)<br>
-точно précisément (adv)<br>
-около (~ 10 кг) autour de … (prep)<br>
-приблизительно approximativement<br>
-приблизительный approximatif (adj)<br>
-почти presque (adv)<br>
-остальное reste (m)<br>
-другой (второй) l'autre (adj)<br>
-другой (иной) autre (adj)<br>
-каждый chaque (adj)<br>
-любой n'importe quel (adj)<br>
-много beaucoup (adv)<br>
-многие plusieurs (pron)<br>
-все (все люди) touts les … , toutes les …<br>
-в обмен на … en échange de …<br>
-взамен en échange (adv)<br>
-вручную à la main (adv)<br>
-вряд ли peu probable (adj)<br>
-наверное (вероятно) probablement (adv)<br>
-нарочно exprès (adv)<br>
-случайно par hasard (adv)<br>
-очень très (adv)<br>
-например par exemple (adv)<br>
-между entre … (prep)<br>
-среди parmi … (prep)<br>
-столько autant (adv)<br>
-особенно surtout (adv)<br>
-основные понятия | часть 2<br>
-<span id="s19">19. Дни недели</span><br>
-понедельник lundi (m)<br>
-вторник mardi (m)<br>
-среда mercredi (m)<br>
-четверг jeudi (m)<br>
-пятница vendredi (m)<br>
-суббота samedi (m)<br>
-воскресенье dimanche (m)<br>
-сегодня aujourd'hui (adv)<br>
-завтра demain (adv)<br>
-послезавтра après-demain (adv)<br>
-вчера hier (adv)<br>
-позавчера avant-hier (adv)<br>
-день jour (m)<br>
-рабочий день jour (m) ouvrable<br>
-праздничный день jour (m) férié<br>
-выходной день jour (m) de repos<br>
-выходные week-end (m)<br>
-весь день toute la journée<br>
-на следующий день le lendemain<br>
-2 дня назад il y a 2 jours<br>
-накануне la veille<br>
-ежедневный quotidien (adj)<br>
-ежедневно tous les jours<br>
-неделя semaine (f)<br>
-на прошлой неделе la semaine dernière<br>
-на следующей неделе la semaine prochaine<br>
-еженедельный hebdomadaire (adj)<br>
-еженедельно chaque semaine<br>
-2 раза в неделю 2 fois par semaine<br>
-каждый вторник tous les mardis<br>
-<br>
-<span id="s20">20. Часы. Время суток</span><br>
-утро matin (m)<br>
-утром le matin<br>
-полдень midi (m)<br>
-после обеда dans l'après-midi<br>
-вечер soir (m)<br>
-вечером le soir<br>
-ночь nuit (f)<br>
-ночью la nuit<br>
-полночь minuit (f)<br>
-секунда seconde (f)<br>
-минута minute (f)<br>
-час heure (f)<br>
-полчаса demi-heure (f)<br>
-четверть часа un quart d'heure<br>
-15 минут quinze minutes<br>
-сутки vingt-quatre heures<br>
-восход солнца lever (m) du soleil<br>
-рассвет aube (f)<br>
-раннее утро pointe (f) du jour<br>
-закат coucher (m) du soleil<br>
-рано утром tôt le matin<br>
-сегодня утром ce matin<br>
-завтра утром demain matin<br>
-сегодня днём cet après-midi<br>
-после обеда dans l'après-midi<br>
-завтра после обеда demain après-midi<br>
-сегодня вечером ce soir<br>
-завтра вечером demain soir<br>
-ровно в 3 часа à 3 heures précises<br>
-около 4-х часов autour de 4 heures<br>
-к 12-ти часам vers midi<br>
-через 20 минут dans 20 minutes<br>
-через час dans une heure<br>
-вовремя à temps<br>
-без четверти moins le quart<br>
-в течение часа en une heure<br>
-каждые 15 минут tous les quarts d'heure<br>
-круглые сутки 24 heures sur 24<br>
-<br>
-<span id="s21">21. Месяцы. Времена года</span><br>
-январь janvier (m)<br>
-февраль février (m)<br>
-март mars (m)<br>
-апрель avril (m)<br>
-май mai (m)<br>
-июнь juin (m)<br>
-июль juillet (m)<br>
-август août (m)<br>
-сентябрь septembre (m)<br>
-октябрь octobre (m)<br>
-ноябрь novembre (m)<br>
-декабрь décembre (m)<br>
-весна printemps (m)<br>
-весной au printemps<br>
-весенний de printemps (adj)<br>
-лето été (m)<br>
-летом en été<br>
-летний d'été (adj)<br>
-осень automne (m)<br>
-осенью en automne<br>
-осенний d'automne (adj)<br>
-зима hiver (m)<br>
-зимой en hiver<br>
-зимний d'hiver (adj)<br>
-месяц mois (m)<br>
-в этом месяце ce mois<br>
-в следующем месяце le mois prochain<br>
-в прошлом месяце le mois dernier<br>
-месяц назад il y a un mois<br>
-через месяц dans un mois<br>
-через 2 месяца dans 2 mois<br>
-весь месяц tout le mois<br>
-целый месяц tout un mois<br>
-ежемесячный mensuel (adj)<br>
-ежемесячно tous les mois<br>
-каждый месяц chaque mois<br>
-2 раза в месяц 2 fois par mois<br>
-год année (f)<br>
-в этом году cette année<br>
-в следующем году l'année prochaine<br>
-в прошлом году l'année dernière<br>
-год назад il y a un an<br>
-через год dans un an<br>
-через 2 года dans 2 ans<br>
-весь год toute l'année<br>
-целый год toute une année<br>
-каждый год chaque année<br>
-ежегодный annuel (adj)<br>
-ежегодно tous les ans<br>
-4 раза в год 4 fois par an<br>
-число (день месяца) date (f)<br>
-дата date (f)<br>
-календарь calendrier (m)<br>
-полгода six mois<br>
-полугодие semestre (m)<br>
-сезон saison (f)<br>
-век (столетие) siècle (m)<br>
-<br>
-<span id="s22">22. Время. Разное</span><br>
-время temps (m)<br>
-миг instant (m)<br>
-мгновение moment (m)<br>
-мгновенный instantané (adj)<br>
-отрезок (времени) laps (m) de temps<br>
-жизнь vie (f)<br>
-вечность éternité (f)<br>
-эпоха époque (f)<br>
-эра ère (f)<br>
-цикл cycle (m)<br>
-период période (f)<br>
-срок (долгий ~) délai (m)<br>
-будущее (сущ.) avenir (m)<br>
-будущий prochain (adj)<br>
-в следующий раз la fois prochaine<br>
-прошлое (сущ.) passé (m)<br>
-прошлый passé (adj)<br>
-в прошлый раз la fois passée<br>
-позже plus tard (adv)<br>
-после après … (prep)<br>
-сейчас (в наше время) à présent (adv)<br>
-сейчас (в эту минуту) maintenant (adv)<br>
-немедленно immédiatement (adv)<br>
-скоро bientôt (adv)<br>
-заранее d'avance (adv)<br>
-давно il y a longtemps<br>
-недавно récemment (adv)<br>
-судьба destin (m)<br>
-память (воспоминания) souvenirs (m pl)<br>
-архив archives (m pl)<br>
-во время … pendant … (prep)<br>
-долго longtemps (adv)<br>
-недолго pas longtemps (adv)<br>
-рано (~ проснуться) tôt (adv)<br>
-поздно (~ встать) tard (adv)<br>
-навсегда pour toujours (adv)<br>
-начинать commencer (vt)<br>
-перенести (о сроке) reporter (vt)<br>
-одновременно en même temps (adv)<br>
-постоянно (все время) tout le temps (adv)<br>
-постоянный (шум) constant (adj)<br>
-временный temporaire (adj)<br>
-иногда parfois (adv)<br>
-редко rarement (adv)<br>
-часто souvent (adv)<br>
-<br>
-<span id="s23">23. Противоположности</span><br>
-богатый riche (adj)<br>
-бедный pauvre (adj)<br>
-больной malade (adj)<br>
-здоровый en bonne santé<br>
-большой grand (adj)<br>
-маленький petit (adj)<br>
-быстро vite (adv)<br>
-медленно lentement (adv)<br>
-быстрый rapide (adj)<br>
-медленный lent (adj)<br>
-весёлый joyeux (adj)<br>
-грустный triste (adj)<br>
-вместе ensemble (adv)<br>
-отдельно séparément (adv)<br>
-вслух à haute voix (adv)<br>
-про себя à part soi<br>
-высокий haut (adj)<br>
-низкий bas (adj)<br>
-глубокий profond (adj)<br>
-мелкий peu profond (adj)<br>
-да oui (adv)<br>
-нет non (adv)<br>
-далёкий lointain (adj)<br>
-близкий proche (adj)<br>
-далеко loin (adv)<br>
-рядом près (adv)<br>
-длинный long (adj)<br>
-короткий court (adj)<br>
-добрый bon (adj)<br>
-злой méchant (adj)<br>
-женатый marié (adj)<br>
-холостой célibataire (adj)<br>
-запретить interdire (vt)<br>
-разрешить permettre (vt)<br>
-конец fin (f)<br>
-начало début (m)<br>
-левый gauche (adj)<br>
-правый droit (adj)<br>
-первый premier (adj)<br>
-последний dernier (adj)<br>
-преступление crime (f)<br>
-наказание punition (f)<br>
-приказать ordonner (vt)<br>
-подчиниться obéir (vt)<br>
-прямой droit (adj)<br>
-кривой courbé (adj)<br>
-рай paradis (m)<br>
-ад enfer (m)<br>
-родиться naître (vi)<br>
-умереть mourir (vi)<br>
-сильный fort (adj)<br>
-слабый faible (adj)<br>
-старый vieux (adj)<br>
-молодой jeune (adj)<br>
-старый vieux (adj)<br>
-новый neuf (adj)<br>
-твёрдый dur (adj)<br>
-мягкий mou (adj)<br>
-тёплый chaud (adj)<br>
-холодный froid (adj)<br>
-толстый gros (adj)<br>
-худой maigre (adj)<br>
-узкий étroit (adj)<br>
-широкий large (adj)<br>
-хороший bon (adj)<br>
-плохой mauvais (adj)<br>
-храбрый vaillant (adj)<br>
-трусливый peureux (adj)<br>
-<br>
-<span id="s24">24. Линии и формы</span><br>
-квадрат carré (m)<br>
-квадратный carré (adj)<br>
-круг cercle (m)<br>
-круглый rond (adj)<br>
-треугольник triangle (m)<br>
-треугольный triangulaire (adj)<br>
-овал ovale (m)<br>
-овальный ovale (adj)<br>
-прямоугольник rectangle (m)<br>
-прямоугольный rectangulaire (adj)<br>
-пирамида pyramide (f)<br>
-ромб losange (m)<br>
-трапеция trapèze (m)<br>
-куб cube (m)<br>
-призма prisme (m)<br>
-окружность circonférence (f)<br>
-сфера sphère (f)<br>
-шар (геометр.) globe (m)<br>
-диаметр diamètre (m)<br>
-радиус rayon (m)<br>
-периметр périmètre (m)<br>
-центр centre (m)<br>
-горизонтальный horizontal (adj)<br>
-вертикальный vertical (adj)<br>
-параллель parallèle (f)<br>
-параллельный parallèle (adj)<br>
-линия ligne (f)<br>
-черта trait (m)<br>
-прямая (сущ.) ligne (f) droite<br>
-кривая (сущ.) courbe (f)<br>
-тонкий fin (adj)<br>
-контур contour (m)<br>
-пересечение croisement (m)<br>
-прямой угол angle (m) droit<br>
-сегмент segment (m)<br>
-сектор secteur (m)<br>
-сторона côté (m)<br>
-угол angle (m)<br>
-<br>
-<span id="s25">25. Меры измерения</span><br>
-вес poids (m)<br>
-длина longueur (f)<br>
-ширина largeur (f)<br>
-высота hauteur (f)<br>
-глубина profondeur (f)<br>
-объём volume (m)<br>
-площадь surface (f)<br>
-грамм gramme (m)<br>
-миллиграмм milligramme (m)<br>
-килограмм kilogramme (m)<br>
-тонна tonne (f)<br>
-фунт (мера веса) livre (f)<br>
-унция once (f)<br>
-метр mètre (m)<br>
-миллиметр millimètre (m)<br>
-сантиметр centimètre (m)<br>
-километр kilomètre (m)<br>
-миля mille (m)<br>
-дюйм pouce (m)<br>
-фут pied (m)<br>
-ярд yard (m)<br>
-квадратный метр mètre (m) carré<br>
-гектар hectare (m)<br>
-литр litre (m)<br>
-градус degré (m)<br>
-вольт volt (m)<br>
-ампер ampère (m)<br>
-лошадиная сила cheval-vapeur (m)<br>
-количество quantité (f)<br>
-немного … un peu de …<br>
-половина moitié (f)<br>
-дюжина douzaine (f)<br>
-штука pièce (f)<br>
-размер (предмета) dimension (f)<br>
-масштаб échelle (f)<br>
-минимальный minimal (adj)<br>
-наименьший le plus petit (adj)<br>
-средний moyen (adj)<br>
-максимальный maximal (adj)<br>
-наибольший le plus grand (adj)<br>
-<br>
-<span id="s26">26. Ёмкости</span><br>
-банка (стеклянная) bocal (m)<br>
-банка (жестяная) boîte (f) en fer-blanc<br>
-ведро seau (m)<br>
-бочка tonneau (m)<br>
-таз bassine (f)<br>
-бак réservoir (m)<br>
-фляжка flasque (f)<br>
-канистра jerrycan (m)<br>
-цистерна citerne (f)<br>
-кружка grande tasse (f)<br>
-чашка tasse (f)<br>
-блюдце soucoupe (f)<br>
-стакан verre (m)<br>
-бокал verre (m) à pied<br>
-кастрюля casserole (f)<br>
-бутылка bouteille (f)<br>
-горлышко (бутылки) goulot (m)<br>
-графин carafe (f)<br>
-кувшин cruche (f)<br>
-сосуд récipient (m)<br>
-горшок pot (m)<br>
-ваза vase (m)<br>
-флакон flacon (m)<br>
-пузырёк fiole (f)<br>
-тюбик tube (m)<br>
-мешок (сахара и т.п.) sac (m)<br>
-пакет (мешок) sac (m)<br>
-пачка (чая, сигарет) paquet (m)<br>
-коробка boîte (f)<br>
-ящик caisse (f)<br>
-корзина panier (m)<br>
-<br>
-<span id="s27">27. Материалы</span><br>
-материал matériau (m)<br>
-дерево bois (m)<br>
-деревянный en bois (adj)<br>
-стекло verre (m)<br>
-стеклянный en verre (adj)<br>
-камень pierre (f)<br>
-каменный en pierre (adj)<br>
-пластик, пластмасса plastique (f)<br>
-пластмассовый en plastique (adj)<br>
-резина caoutchouc (m)<br>
-резиновый en caoutchouc (adj)<br>
-ткань tissu (m)<br>
-из ткани en tissu (adj)<br>
-бумага papier (m)<br>
-бумажный de papier (adj)<br>
-картон carton (m)<br>
-картонный en carton (adj)<br>
-полиэтилен polyéthylène (m)<br>
-целлофан cellophane (f)<br>
-линолеум linoléum (m)<br>
-фанера contreplaqué (m)<br>
-фарфор porcelaine (f)<br>
-фарфоровый de porcelaine (adj)<br>
-глина argile (f)<br>
-глиняный (о посуде) en argile (adj)<br>
-керамика céramique (f)<br>
-керамический en céramique (adj)<br>
-металл métal (m)<br>
-металлический métallique (adj)<br>
-сплав alliage (m)<br>
-<br>
-<span id="s28">28. Металлы</span><br>
-золото or (m)<br>
-золотой en or (adj)<br>
-серебро argent (m)<br>
-серебряный en argent (adj)<br>
-железо fer (m)<br>
-железный en fer (adj)<br>
-сталь acier (m)<br>
-стальной en acier<br>
-медь cuivre (m)<br>
-медный en cuivre (adj)<br>
-алюминий aluminium (m)<br>
-алюминиевый en aluminium (adj)<br>
-бронза bronze (f)<br>
-бронзовый en bronze (adj)<br>
-латунь laiton (m)<br>
-никель nickel (m)<br>
-платина platine (f)<br>
-ртуть mercure (m)<br>
-олово étain (m)<br>
-свинец plomb (m)<br>
-цинк zinc (m)<br>
-<br>
-ЧЕЛОВЕК | тело человека<br>
-<span id="s29">29. Человек. Общие понятия</span><br>
-человек être (m) humain<br>
-мужчина homme (m)<br>
-женщина femme (f)<br>
-ребёнок enfant (m, f)<br>
-девочка fille (f)<br>
-мальчик garçon (m)<br>
-подросток adolescent (m)<br>
-старик vieillard (m)<br>
-старая женщина vieille femme (f)<br>
-организм organisme (m)<br>
-сердце cœur (m)<br>
-кровь sang (m)<br>
-артерия artère (f)<br>
-вена veine (f)<br>
-мозг cerveau (m)<br>
-нерв nerf (m)<br>
-нервы nerfs (m pl)<br>
-позвонок vertèbre (m)<br>
-позвоночник colonne (f) vertébrale<br>
-желудок estomac (m)<br>
-кишечник intestin (m)<br>
-кишка boyau (m)<br>
-печень foie (m)<br>
-почка rein (m)<br>
-кость os (m)<br>
-скелет squelette (f)<br>
-ребро côte (f)<br>
-череп crâne (m)<br>
-мышца muscle (m)<br>
-бицепс biceps (m)<br>
-трицепс triceps (m)<br>
-сухожилие tendon (m)<br>
-сустав articulation (f)<br>
-лёгкие poumons (m pl)<br>
-половые органы organes (m pl) génitaux<br>
-кожа peau (f)<br>
-<br>
-<span id="s31">31. Голова</span><br>
-голова tête (f)<br>
-лицо visage (m)<br>
-нос nez (m)<br>
-рот bouche (f)<br>
-глаз œil (m)<br>
-глаза les yeux<br>
-зрачок pupille (f)<br>
-бровь sourcil (m)<br>
-ресница cil (m)<br>
-веко paupière (f)<br>
-язык langue (f)<br>
-зуб dent (f)<br>
-губы lèvres (f pl)<br>
-скулы pommettes (f pl)<br>
-десна gencive (f)<br>
-нёбо palais (m)<br>
-ноздри narines (f pl)<br>
-подбородок menton (m)<br>
-челюсть mâchoire (f)<br>
-щека joue (f)<br>
-лоб front (m)<br>
-висок tempe (f)<br>
-ухо oreille (f)<br>
-затылок nuque (f)<br>
-шея cou (m)<br>
-горло gorge (f)<br>
-волосы cheveux (m pl)<br>
-причёска coiffure (f)<br>
-стрижка (причёска) coupe (f)<br>
-парик perruque (f)<br>
-усы moustache (f)<br>
-борода barbe (f)<br>
-носить (усы, бороду) porter (vt)<br>
-коса tresse (f)<br>
-бакенбарды favoris (m pl)<br>
-рыжий (человек) roux (adj)<br>
-седой (о волосах) gris (adj)<br>
-лысый chauve (adj)<br>
-лысина calvitie (f)<br>
-хвост (причёска) queue (f) de cheval<br>
-чёлка frange (f)<br>
-<br>
-<span id="s32">32. Тело</span><br>
-кисть main (f)<br>
-рука (вся) bras (m)<br>
-палец doigt (m)<br>
-палец (ноги) orteil (m)<br>
-большой палец pouce (m)<br>
-мизинец petit doigt (m)<br>
-ноготь ongle (m)<br>
-кулак poing (m)<br>
-ладонь paume (f)<br>
-запястье poignet (m)<br>
-предплечье avant-bras (m)<br>
-локоть coude (m)<br>
-плечо épaule (f)<br>
-нога (выше ступни) jambe (f)<br>
-ступня pied (m)<br>
-колено genou (m)<br>
-икра mollet (m)<br>
-бедро hanche (f)<br>
-пятка talon (m)<br>
-тело corps (m)<br>
-живот ventre (m)<br>
-грудь poitrine (f)<br>
-грудь (женская) sein (m)<br>
-бок côté (m)<br>
-спина dos (m)<br>
-поясница reins (m pl)<br>
-талия taille (f)<br>
-пупок nombril (m)<br>
-ягодицы fesses (f pl)<br>
-зад derrière (m)<br>
-родинка grain (m) de beauté<br>
-родимое пятно tache (f) de vin<br>
-татуировка tatouage (m)<br>
-шрам cicatrice (f)<br>
-<br>
-одежда | аксессуары<br>
-<span id="s33">33. Верхняя одежда</span><br>
-одежда vêtement (m)<br>
-верхняя одежда survêtement (m)<br>
-зимняя одежда vêtement (m) d'hiver<br>
-пальто manteau (m)<br>
-шуба manteau (m) de fourrure<br>
-полушубок veste (f) en fourrure<br>
-пуховик manteau (m) de duvet<br>
-куртка (кожаная и т.п.) veste (f)<br>
-плащ imperméable (m)<br>
-непромокаемый imperméable (adj)<br>
-рубашка chemise (f)<br>
-брюки pantalon (m)<br>
-джинсы jean (m)<br>
-пиджак veston (m)<br>
-костюм (мужской) complet (m)<br>
-платье robe (f)<br>
-юбка jupe (f)<br>
-блузка chemisette (f)<br>
-кофта (шерстяная) gilet (m) en laine<br>
-жакет jaquette (f)<br>
-футболка tee-shirt (m)<br>
-шорты short (m)<br>
-спортивный костюм costume (m) de sport<br>
-халат (махровый) peignoir (m) de bain<br>
-пижама pyjama (m)<br>
-свитер chandail (m)<br>
-пуловер pull (m)<br>
-жилет gilet (m)<br>
-фрак queue-de-pie (f)<br>
-смокинг smoking (m)<br>
-форма (униформа) uniforme (f)<br>
-рабочая одежда tenue (f) de travail<br>
-комбинезон salopette (f)<br>
-халат (врача) blouse (f)<br>
-<br>
-<span id="s35">35. Одежда. Бельё</span><br>
-бельё (одежда) sous-vêtements (m pl)<br>
-трусы мужские boxer (m)<br>
-трусы женские slip (m) de femme<br>
-майка maillot (m) de corps<br>
-носки chaussettes (f pl)<br>
-ночная рубашка chemise (f) de nuit<br>
-бюстгальтер soutien-gorge (m)<br>
-гольфы (носки) chaussettes (f pl) hautes<br>
-колготки collants (m pl)<br>
-чулки bas (m pl)<br>
-купальник maillot (m) de bain<br>
-<br>
-<span id="s36">36. Головной убор</span><br>
-шапка bonnet (m)<br>
-шляпа chapeau (m) feutre<br>
-бейсболка casquette (f) de base-ball<br>
-кепка casquette (f)<br>
-берет béret (m)<br>
-капюшон capuche (f)<br>
-панамка panama (m)<br>
-вязаная шапочка bonnet (m) de laine<br>
-платок (головной) foulard (m)<br>
-шляпка (женская) chapeau (m) de femme<br>
-каска casque (m)<br>
-пилотка (воен.) calot (m)<br>
-шлем casque (m)<br>
-котелок (шляпа) melon (m)<br>
-цилиндр haut (m) de forme<br>
-<br>
-<span id="s37">37. Обувь</span><br>
-обувь chaussures (f pl)<br>
-ботинки bottines (f pl)<br>
-туфли souliers (m pl)<br>
-сапоги bottes (m pl)<br>
-тапочки chaussons (m pl)<br>
-кроссовки tennis (m pl)<br>
-кеды baskets (m pl)<br>
-сандалии sandales (f pl)<br>
-сапожник cordonnier (m)<br>
-каблук talon (m)<br>
-пара (обуви и т.п.) paire (f)<br>
-шнурок lacet (m)<br>
-шнуровать (ботинки) lacer (vt)<br>
-рожок (для обуви) chausse-pied (m)<br>
-крем для обуви cirage (m)<br>
-<br>
-<span id="s38">38. Ткани. Материалы</span><br>
-хлопок coton (m)<br>
-из хлопка de coton (adj)<br>
-лён lin (m)<br>
-из льна de lin (adj)<br>
-шёлк soie (f)<br>
-шёлковый de soie (adj)<br>
-шерсть laine (f)<br>
-шерстяной en laine (adj)<br>
-бархат velours (m)<br>
-замша chamois (m)<br>
-вельвет velours (m) côtelé<br>
-нейлон nylon (m)<br>
-из нейлона en nylon (adj)<br>
-полиэстер polyester (m)<br>
-полиэстровый en polyester (adj)<br>
-кожа cuir (m)<br>
-из кожи en cuir (adj)<br>
-мех fourrure (f)<br>
-меховой en fourrure (adj)<br>
-<br>
-<span id="s39">39. Аксессуары</span><br>
-перчатки gants (m pl)<br>
-варежки moufles (f pl)<br>
-шарф écharpe (f)<br>
-очки lunettes (f pl)<br>
-оправа monture (f)<br>
-зонт parapluie (m)<br>
-трость canne (f)<br>
-щётка для волос brosse (f) à cheveux<br>
-веер éventail (m)<br>
-галстук cravate (f)<br>
-галстук-бабочка nœud papillon (m)<br>
-подтяжки bretelles (f pl)<br>
-носовой платок mouchoir (m)<br>
-расчёска peigne (m)<br>
-заколка barrette (f)<br>
-шпилька épingle (f) à cheveux<br>
-пряжка boucle (f)<br>
-пояс (ремень) ceinture (f)<br>
-ремень (сумки) bandoulière (f)<br>
-сумка sac (m)<br>
-сумочка (женская) sac (m) à main<br>
-рюкзак sac (m) à dos<br>
-мода mode (f)<br>
-модный à la mode (adj)<br>
-модельер couturier (m)<br>
-воротник col (m)<br>
-карман poche (f)<br>
-карманный de poche (adj)<br>
-рукав manche (f)<br>
-вешалка (петля) bride (f)<br>
-ширинка braguette (f)<br>
-молния (застежка) fermeture (f) à glissière<br>
-застёжка agrafe (f)<br>
-пуговица bouton (m)<br>
-петля (для пуговицы) boutonnière (f)<br>
-оторваться (о пуговице) s'arracher (vp)<br>
-шить coudre (vi, vt)<br>
-вышивать broder (vt)<br>
-вышивка broderie (f)<br>
-игла (для шитья) aiguille (f)<br>
-нитка fil (m)<br>
-шов (швейный) couture (f)<br>
-испачкаться se salir (vp)<br>
-пятно tache (f)<br>
-помяться (об одежде) se froisser (vp)<br>
-порвать (испортить) déchirer (vt)<br>
-моль mite (f)<br>
-<span id="s41">41. Предметы личной гигиены. Косметика</span><br>
-зубная паста dentifrice (m)<br>
-зубная щётка brosse (f) à dents<br>
-чистить зубы se brosser les dents<br>
-бритва rasoir (m)<br>
-крем для бритья crème (f) à raser<br>
-бриться se raser (vp)<br>
-мыло savon (m)<br>
-шампунь shampooing (m)<br>
-ножницы ciseaux (m pl)<br>
-пилочка для ногтей lime (f) à ongles<br>
-щипчики для ногтей pinces (f pl) à ongles<br>
-пинцет pince (f)<br>
-косметика produits (m pl) de beauté<br>
-маска (косметич.) masque (m) de beauté<br>
-маникюр manucure (f)<br>
-делать маникюр se faire les ongles<br>
-педикюр pédicure (f)<br>
-косметичка trousse (f) de toilette<br>
-пудра poudre (f)<br>
-пудреница poudrier (m)<br>
-румяна fard (m) à joues<br>
-духи parfum (m)<br>
-туалетная вода eau (f) de toilette<br>
-лосьон lotion (f)<br>
-одеколон eau de Cologne (f)<br>
-тени для век fard (m) à paupières<br>
-карандаш для глаз crayon (m) à paupières<br>
-тушь для ресниц mascara (m)<br>
-губная помада rouge (m) à lèvres<br>
-лак для ногтей vernis (m) à ongles<br>
-лак для волос laque (f) pour les cheveux<br>
-дезодорант déodorant (m)<br>
-крем crème (f)<br>
-крем для лица crème (f) pour le visage<br>
-крем для рук crème (f) pour les mains<br>
-крем против морщин crème (f) anti-rides<br>
-дневной крем crème (f) de jour<br>
-ночной крем crème (f) de nuit<br>
-дневной de jour (adj)<br>
-ночной de nuit (adj)<br>
-тампон tampon (m)<br>
-туалетная бумага papier (m) de toilette<br>
-фен sèche-cheveux (m)<br>
-<br>
-<span id="s42">42. Украшения. Драгоценности</span><br>
-драгоценности bijoux (m pl)<br>
-драгоценный (камень) précieux (adj)<br>
-проба (клеймо) poinçon (m)<br>
-кольцо bague (f)<br>
-обручальное кольцо alliance (f)<br>
-браслет (украшение) bracelet (m)<br>
-серьги boucles (f pl) d'oreille<br>
-ожерелье collier (m)<br>
-корона couronne (f)<br>
-бусы collier (m)<br>
-бриллиант diamant (m)<br>
-изумруд émeraude (m)<br>
-рубин rubis (m)<br>
-сапфир saphir (m)<br>
-жемчуг perle (f)<br>
-янтарь ambre (m)<br>
-<br>
-<span id="s43">43. Часы</span><br>
-часы (наручные) montre (f)<br>
-циферблат cadran (m)<br>
-стрелка (часов) aiguille (f)<br>
-браслет (на часах) bracelet (m)<br>
-ремешок bracelet (m)<br>
-батарейка pile (f)<br>
-сесть (о батарейке) être déchargé<br>
-поменять батарейку changer de pile<br>
-спешить (о часах) avancer (vi)<br>
-отставать retarder (vi)<br>
-часы настенные pendule (f)<br>
-часы песочные sablier (m)<br>
-часы солнечные cadran (m) solaire<br>
-будильник réveil (m)<br>
-часовщик horloger (m)<br>
-ремонтировать réparer (vt)<br>
-<br>
-питание<br>
-<span id="s44">44. Продукты</span><br>
-мясо viande (f)<br>
-курица poulet (m)<br>
-цыплёнок poulet (m)<br>
-утка canard (m)<br>
-гусь oie (f)<br>
-дичь gibier (m)<br>
-индейка dinde (f)<br>
-свинина du porc<br>
-телятина du veau<br>
-баранина du mouton<br>
-говядина du bœuf<br>
-кролик lapin (m)<br>
-колбаса saucisson (m)<br>
-сосиска saucisse (f)<br>
-бекон bacon (m)<br>
-ветчина jambon (m)<br>
-окорок cuisse (f)<br>
-паштет pâté (m)<br>
-печень foie (m)<br>
-сало lard (m)<br>
-фарш farce (f)<br>
-язык langue (f)<br>
-яйцо œuf (m)<br>
-яйца les œufs<br>
-белок blanc (m) d'œuf<br>
-желток jaune (m) d'œuf<br>
-рыба poisson (m)<br>
-морепродукты fruits (m pl) de mer<br>
-ракообразные crustacés (m pl)<br>
-икра caviar (m)<br>
-краб crabe (m)<br>
-креветка crevette (f)<br>
-устрица huître (f)<br>
-лангуст langoustine (f)<br>
-осьминог poulpe (m)<br>
-кальмар calamar (m)<br>
-осетрина esturgeon (m)<br>
-лосось saumon (m)<br>
-палтус flétan (m)<br>
-треска morue (f)<br>
-скумбрия maquereau (m)<br>
-тунец thon (m)<br>
-угорь anguille (f)<br>
-форель truite (f)<br>
-сардина sardine (f)<br>
-щука brochet (m)<br>
-сельдь hareng (m)<br>
-хлеб pain (m)<br>
-сыр fromage (m)<br>
-сахар sucre (m)<br>
-соль sel (m)<br>
-рис riz (m)<br>
-макароны pâtes (m pl)<br>
-лапша nouilles (f pl)<br>
-сливочное масло beurre (m)<br>
-масло растительное huile (f) végétale<br>
-подсолнечное масло huile (f) de tournesol<br>
-маргарин margarine (f)<br>
-оливки olives (f pl)<br>
-масло оливковое huile (f) d'olive<br>
-молоко lait (m)<br>
-сгущённое молоко lait (m) condensé<br>
-йогурт yogourt (m)<br>
-сметана crème (f) aigre<br>
-сливки crème (f)<br>
-майонез sauce (f) mayonnaise<br>
-крем crème (f) au beurre<br>
-крупа gruau (m)<br>
-мука farine (f)<br>
-консервы conserves (f pl)<br>
-кукурузные хлопья pétales (m pl) de maïs<br>
-мёд miel (m)<br>
-джем, конфитюр confiture (f)<br>
-жевательная резинка gomme (f) à mâcher<br>
-<br>
-<span id="s45">45. Напитки</span><br>
-вода eau (f)<br>
-питьевая вода eau (f) potable<br>
-минеральная вода eau (f) minérale<br>
-без газа plate (adj)<br>
-газированный gazeuse (adj)<br>
-с газом pétillante (adj)<br>
-лёд glace (f)<br>
-со льдом avec de la glace<br>
-безалкогольный sans alcool<br>
-безалкогольный напиток boisson (f) non alcoolisée<br>
-прохладительный напиток rafraîchissement (m)<br>
-лимонад limonade (f)<br>
-алкогольные напитки boissons (f pl) alcoolisées<br>
-вино vin (m)<br>
-белое вино vin (m) blanc<br>
-красное вино vin (m) rouge<br>
-ликёр liqueur (f)<br>
-шампанское champagne (m)<br>
-вермут vermouth (m)<br>
-виски whisky (m)<br>
-водка vodka (f)<br>
-джин gin (m)<br>
-коньяк cognac (m)<br>
-ром rhum (m)<br>
-кофе café (m)<br>
-чёрный кофе café (m) noir<br>
-кофе с молоком café (m) au lait<br>
-капучино cappuccino (m)<br>
-растворимый кофе café (m) soluble<br>
-молоко lait (m)<br>
-коктейль cocktail (m)<br>
-молочный коктейль cocktail (m) au lait<br>
-сок jus (m)<br>
-томатный сок jus (m) de tomate<br>
-апельсиновый сок jus (m) d'orange<br>
-свежевыжатый сок jus (m) pressé<br>
-пиво bière (f)<br>
-светлое пиво bière (f) blonde<br>
-тёмное пиво bière (f) brune<br>
-чай thé (m)<br>
-чёрный чай thé (m) noir<br>
-зелёный чай thé (m) vert<br>
-<br>
-<span id="s46">46. Овощи</span><br>
-овощи légumes (m pl)<br>
-зелень verdure (f)<br>
-помидор tomate (f)<br>
-огурец concombre (m)<br>
-морковь carotte (f)<br>
-картофель pomme (f) de terre<br>
-лук (луковица) oignon (m)<br>
-чеснок ail (m)<br>
-капуста chou (m)<br>
-цветная капуста chou-fleur (m)<br>
-брюссельская капуста chou (m) de Bruxelles<br>
-капуста брокколи brocoli (m)<br>
-свёкла betterave (f)<br>
-баклажан aubergine (f)<br>
-кабачок courgette (f)<br>
-тыква potiron (m)<br>
-репа navet (m)<br>
-петрушка persil (m)<br>
-укроп fenouil (m)<br>
-салат (латук) laitue (f), salade (f)<br>
-сельдерей céleri (m)<br>
-спаржа asperge (f)<br>
-шпинат épinard (m)<br>
-горох pois (m)<br>
-бобы fèves (f pl)<br>
-кукуруза maïs (m)<br>
-фасоль haricot (m)<br>
-перец poivron (m)<br>
-редис radis (m)<br>
-артишок artichaut (m)<br>
-<br>
-<span id="s47">47. Фрукты. Орехи</span><br>
-фрукт fruit (m)<br>
-яблоко pomme (f)<br>
-груша poire (f)<br>
-лимон citron (m)<br>
-апельсин orange (f)<br>
-клубника fraise (f)<br>
-мандарин mandarine (f)<br>
-слива prune (f)<br>
-персик pêche (f)<br>
-абрикос abricot (m)<br>
-малина framboise (f)<br>
-ананас ananas (m)<br>
-банан banane (f)<br>
-арбуз pastèque (f)<br>
-виноград raisin (m)<br>
-вишня cerise (f)<br>
-черешня merise (f)<br>
-дыня melon (m)<br>
-грейпфрут pamplemousse (m)<br>
-авокадо avocat (m)<br>
-папайя papaye (f)<br>
-манго mangue (f)<br>
-гранат grenade (f)<br>
-красная смородина groseille (f) rouge<br>
-чёрная смородина cassis (m)<br>
-крыжовник groseille (f) verte<br>
-черника myrtille (f)<br>
-ежевика mûre (f)<br>
-изюм raisin (m) sec<br>
-инжир figue (f)<br>
-финик datte (f)<br>
-арахис cacahuète (f)<br>
-миндаль amande (f)<br>
-орех (грецкий) noix (f)<br>
-орех (лесной) noisette (f)<br>
-орех кокосовый noix (f) de coco<br>
-фисташки pistaches (f pl)<br>
-<br>
-<span id="s48">48. Сладости. Хлеб</span><br>
-кондитерские изделия confiserie (f)<br>
-хлеб pain (m)<br>
-печенье biscuit (m)<br>
-шоколад chocolat (m)<br>
-шоколадный en chocolat (adj)<br>
-конфета bonbon (m)<br>
-пирожное gâteau (m)<br>
-торт tarte (f)<br>
-пирог gâteau (m)<br>
-начинка garniture (f)<br>
-варенье confiture (f)<br>
-мармелад marmelade (f)<br>
-вафли gaufre (f)<br>
-мороженое glace (f)<br>
-пудинг pudding (m)<br>
-<br>
-<span id="s49">49. Блюда</span><br>
-блюдо plat (m)<br>
-кухня (национальная) cuisine (f)<br>
-рецепт (кулинарн.) recette (f)<br>
-порция portion (f)<br>
-салат salade (f)<br>
-суп soupe (f)<br>
-бульон bouillon (m)<br>
-бутерброд sandwich (m)<br>
-яичница les œufs brouillés<br>
-котлета boulette (f)<br>
-гамбургер hamburger (m)<br>
-бифштекс steak (m)<br>
-жаркое rôti (m)<br>
-гарнир garniture (f)<br>
-спагетти spaghettis (m pl)<br>
-картофельное пюре purée (f)<br>
-пицца pizza (f)<br>
-каша bouillie (f)<br>
-омлет omelette (f)<br>
-варёный cuit à l'eau (adj)<br>
-копчёный fumé (adj)<br>
-жареный (на сковороде) frit (adj)<br>
-сушёный sec (adj)<br>
-замороженный congelé (adj)<br>
-маринованный mariné (adj)<br>
-сладкий (о чае, кофе) sucré (adj)<br>
-солёный salé (adj)<br>
-холодный froid (adj)<br>
-горячий chaud (adj)<br>
-горький amer (adj)<br>
-вкусный bon (adj)<br>
-варить (готовить) cuire à l'eau<br>
-готовить (ужин) préparer (vt)<br>
-жарить faire frire<br>
-разогревать réchauffer (vt)<br>
-солить saler (vt)<br>
-перчить poivrer (vt)<br>
-тереть (на тёрке) râper (vt)<br>
-кожура peau (f)<br>
-чистить (картошку и т.п.) éplucher (vt)<br>
-соль sel (m)<br>
-солёный salé (adj)<br>
-солить saler (vt)<br>
-чёрный перец poivre (m) noir<br>
-красный перец poivre (m) rouge<br>
-горчица moutarde (f)<br>
-хрен raifort (m)<br>
-приправа condiment (m)<br>
-пряность épice (f)<br>
-соус sauce (f)<br>
-уксус vinaigre (m)<br>
-анис anis (m)<br>
-базилик basilic (m)<br>
-гвоздика clou (m) de girofle<br>
-имбирь gingembre (m)<br>
-кориандр coriandre (m)<br>
-корица cannelle (f)<br>
-кунжут sésame (m)<br>
-лавровый лист feuille (f) de laurier<br>
-паприка paprika (m)<br>
-тмин cumin (m)<br>
-шафран safran (m)<br>
-<br>
-</div>
+<div id="result"></div>
+
+<hr>
+
+<pre id="book">
+1. Местоимения
+
+я je
+ты tu
+он il
+она elle
+оно ça
+мы nous
+вы vous
+они ils
+
+2. Приветствия
+
+привет salut
+здравствуйте bonjour
+доброе утро bonjour
+добрый вечер bonsoir
+пока salut
+до свидания au revoir
+спасибо merci
+большое спасибо merci beaucoup
+пожалуйста s'il vous plaît
+извините excusez-moi
+
+3. Числа
+
+ноль zéro
+один un
+два deux
+три trois
+четыре quatre
+пять cinq
+шесть six
+семь sept
+восемь huit
+девять neuf
+десять dix
+
+4. Вопросы
+
+кто qui
+что quoi
+где où
+куда où
+когда quand
+почему pourquoi
+как comment
+
+5. Время
+
+утро matin
+вечер soir
+ночь nuit
+день jour
+неделя semaine
+месяц mois
+год année
+
+6. Еда
+
+хлеб pain
+вода eau
+мясо viande
+рыба poisson
+молоко lait
+чай thé
+кофе café
+соль sel
+сахар sucre
+
+7. Цвета
+
+белый blanc
+чёрный noir
+красный rouge
+синий bleu
+зелёный vert
+жёлтый jaune
+
+8. Глаголы
+
+быть être
+иметь avoir
+идти aller
+видеть voir
+делать faire
+говорить parler
+понимать comprendre
+знать savoir
+хотеть vouloir
+мочь pouvoir
+
+9. Человек
+
+голова tête
+глаз œil
+рука main
+нога jambe
+сердце cœur
+волосы cheveux
+
+10. Одежда
+
+рубашка chemise
+куртка veste
+обувь chaussures
+шапка bonnet
+брюки pantalon
+</pre>
+
 <script>
-var rawText = '';
-var pos = 0;
-var found = 0;
-var word = '';
 
-function searchWord() {
+function s(){
 
-  // Начинаем новый поиск
-  word = document.getElementById('searchInput').value.toLowerCase();
+  var w =
+  document.getElementById('q')
+  .value
+  .toLowerCase();
 
-  if (!word) {
-    document.getElementById('searchResult').innerHTML = 'Введите слово';
+  var r =
+  document.getElementById('result');
+
+  if(!w){
+    r.innerHTML='Введите слово';
     return;
   }
 
-  rawText = document.getElementById('book').innerHTML;
+  var t =
+  document.getElementById('book')
+  .innerText;
 
-  pos = 0;
-  found = 0;
+  var len = t.length;
 
-  document.getElementById('searchResult').innerHTML = 'Поиск...<br>';
-
-  searchChunk();
-}
-
-function searchChunk() {
-
-  // Размер куска
-  var size = Math.floor(rawText.length / 10);
-
-  // Берем только часть текста
-  var chunk = rawText.substr(pos, size);
-
-  // Освобождаем память сразу
-  chunk = chunk.replace(/<[^>]+>/g, '');
-
-  var lines = chunk.split('<br>');
+  var start = 0;
 
   var out = '';
 
-  for (var i = 0; i < lines.length; i++) {
+  var found = 0;
 
-    var line = lines[i];
+  while(start < len){
 
-    if (line.toLowerCase().indexOf(word) != -1) {
+    var end =
+    t.indexOf('\n', start);
+
+    if(end == -1){
+      end = len;
+    }
+
+    var line =
+    t.substring(start, end);
+
+    if(
+      line.toLowerCase()
+      .indexOf(w) != -1
+    ){
 
       out += line + '<br>';
+
       found++;
 
-      if (found >= 10) {
-        document.getElementById('searchResult').innerHTML += out;
-        rawText = '';
-        return;
+      if(found >= 5){
+        break;
       }
     }
+
+    start = end + 1;
   }
 
-  document.getElementById('searchResult').innerHTML += out;
-
-  // Очищаем память
-  chunk = null;
-  lines = null;
-
-  pos += size;
-
-  // Продолжаем позже
-  if (pos < rawText.length) {
-
-    setTimeout(searchChunk, 10);
-
-  } else {
-
-    if (found == 0) {
-      document.getElementById('searchResult').innerHTML = 'Ничего не найдено';
-    }
-
-    rawText = '';
+  if(found){
+    r.innerHTML = out;
+  }else{
+    r.innerHTML = 'Не найдено';
   }
+
 }
 </script>
 
